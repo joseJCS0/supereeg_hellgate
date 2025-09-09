@@ -12,12 +12,13 @@ warnings.simplefilter('ignore')
 
 bo_fname = sys.argv[1]
 
-freq = bo_fname.split('_')[-1].split('.bo')[0]
+#freq = bo_fname.split('_')[-1].split('.bo')[0]
 
-if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
-    freq = 'raw'
+'''if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
+    freq = 'raw'''
 
-results_dir = os.path.join(config['resultsdir'], freq + '_recon')
+#results_dir = os.path.join(config['resultsdir'], freq + '_recon')(OG)
+results_dir = os.path.join(config['resultsdir'], 'recon')
 
 file_name = os.path.basename(os.path.splitext(bo_fname)[0])
 print(file_name)
@@ -35,7 +36,8 @@ while not loaded and numtries < 20:
 
 ave_dir = os.path.join(config['resultsdir'])
 
-ave ='ave_mat_' + freq + '.mo'
+#ave ='ave_mat_' + freq + '.mo' (OG)
+ave ='ave_mat_' + '.mo'
 
 numtries = 0
 loaded = False
@@ -63,19 +65,21 @@ try:
 except OSError as err:
    print(err)
 
-freq_bo = se.load(bo_fname)
+#freq_bo = se.load(bo_fname)
 basefname = os.path.basename(bo_fname)
-freq = bo_fname.split('_')[-1].split('.bo')[0]
-og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.bo')
-if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
-    og_fname = bo_fname
+#freq = bo_fname.split('_')[-1].split('.bo')[0]
+#og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.bo')(OG)
+og_fname = os.path.join(config['og_bodir'], '.bo')
+'''f not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
+    og_fname = bo_fname'''
 og_bo = se.load(og_fname)
 filter_inds = og_bo.filter_inds
 kurtosis = og_bo.kurtosis
-bo = BandBrain(freq_bo, og_bo)
+# bo = BandBrain(ferq, og_bo)
+bo = BandBrain(og_bo, og_bo)
 num_elec = bo.get_locs().shape[0]
 del bo
-del freq_bo
+#del freq_bo
 gc.collect()
 
 print('filter applied')
@@ -86,8 +90,8 @@ def recon_elec(elec_ind):
     if os.path.exists(recon_outfile_across) and os.path.exists(recon_outfile_within):
         return
     
-    freq_bo = se.load(bo_fname)
-    bo = BandBrain(freq_bo, og_bo)
+    #freq_bo = se.load(bo_fname)
+    bo = BandBrain(og_bo, og_bo)
     electrode = bo.get_locs().iloc[elec_ind]
 
     R_K_subj = bo.get_locs().values

@@ -19,9 +19,10 @@ except:
 # each job command should be formatted as a string
 job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'ave_mats.py')
 
-freqnames = ['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']
+#freqnames = ['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']
+#job_commands = list(map(lambda x: x[0]+" " + x[1], zip([job_script]*len(freqnames), freqnames)))(OG)
+job_commands = list(map(lambda x: x[0]+" " + x[1], zip([job_script])))
 
-job_commands = list(map(lambda x: x[0]+" " + x[1], zip([job_script]*len(freqnames), freqnames)))
 # job_names should specify the file name of each script (as a list, of the same length as job_commands)
 
 job_names = list(map(lambda x: 'model_' + str(x) + '.sh', range(len(job_commands))))
@@ -121,7 +122,7 @@ for n, c in zip(job_names, job_commands):
     if not os.path.isfile(os.path.join(script_dir, n)):
         if lock(next_lockfile):
             next_job = create_job(n, c)
-
+            #NEED TO CHANGE 
             if (socket.gethostname() == 'discovery7.hpcc.dartmouth.edu') or (socket.gethostname() == 'ndoli.hpcc.dartmouth.edu'):
                 submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; mksub'
             else:

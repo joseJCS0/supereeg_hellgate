@@ -8,12 +8,13 @@ from config import config
 from bandbrain import BandBrain
 bo_fname = sys.argv[1]
 
-freq = bo_fname.split('_')[-1].split('.bo')[0]
+#freq = bo_fname.split('_')[-1].split('.bo')[0]
 
-if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
-    freq = 'raw'
+'''if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
+    freq = 'raw'''
 
-results_dir = os.path.join(config['resultsdir'], freq + '_recon')
+#results_dir = os.path.join(config['resultsdir'], freq + '_recon')(og)
+results_dir = os.path.join(config['resultsdir'], 'recon')
 recon_outfile_across = os.path.join(results_dir, os.path.basename(sys.argv[1][:-3] + '_' + sys.argv[2] + '.npz'))
 recon_outfile_within = os.path.join(results_dir, os.path.basename(sys.argv[1][:-3] + '_' + sys.argv[2] + '_within.npz'))
 
@@ -33,7 +34,8 @@ mo_mo = se.load(mo_mo_fname)
 # ave_dir = os.path.join(config['avedir'], model_template+ '_' + radius)
 ave_dir = os.path.join(config['resultsdir'])
 
-ave ='ave_mat_' + freq + '.mo'
+#ave ='ave_mat_' + freq + '.mo'(OG)
+ave ='ave_mat' + '.mo'
 mo = se.load(os.path.join(ave_dir, ave))
 
 R = mo.get_locs().values
@@ -55,10 +57,11 @@ except OSError as err:
 
 bo = se.load(bo_fname)
 basefname = os.path.basename(bo_fname)
-freq = bo_fname.split('_')[-1].split('.bo')[0]
-og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.bo')
-if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
-    og_fname = bo_fname 
+#freq = bo_fname.split('_')[-1].split('.bo')[0]
+#og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.bo')
+og_fname = os.path.join(config['og_bodir'],'.bo')
+'''if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
+    og_fname = bo_fname''' 
 og_bo = se.load(og_fname)
 bo = BandBrain(bo, og_bo)
 bo.apply_filter(og_bo)

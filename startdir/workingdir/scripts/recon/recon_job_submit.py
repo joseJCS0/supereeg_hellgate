@@ -23,10 +23,11 @@ except:
 
 def electrode_search(fname, threshold=10):
     basefname = os.path.basename(fname)
-    freq = fname.split('_')[-1].split('.bo')[0]
-    og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.bo')
-    if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
-        og_fname = fname 
+    #freq = fname.split('_')[-1].split('.bo')[0]
+    #og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.bo') (OG)
+    og_fname = os.path.join(config['og_bodir'],'.bo')
+    '''if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
+        og_fname = fname''' 
     kurt_vals = se.load(og_fname, field='kurtosis')
     thresh_bool = kurt_vals > threshold
     return sum(~thresh_bool)
@@ -35,11 +36,13 @@ def electrode_search(fname, threshold=10):
 # each job command should be formatted as a string
 job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'recon.py')
 
-freqnames = ['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband']
+'''freqnames = ['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband']
 completed = []
 for freq in freqnames:
-    completed += glob.glob(os.path.join(config['resultsdir'], freq + '_recon', '*_within.npz'))
+    completed += glob.glob(os.path.join(config['resultsdir'], freq + '_recon', '*_within.npz'))'''
 
+
+completed = glob.glob(os.path.join(config['resultsdir'],'recon', '*_within.npz'))
 
 completed = set(['_'.join(os.path.basename(os.path.splitext(f)[0]).split('_')[:-2]) for f in completed])
 
