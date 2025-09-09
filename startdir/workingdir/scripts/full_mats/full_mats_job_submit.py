@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 # create a bunch of job scripts
 from config import config
@@ -21,17 +20,17 @@ job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'full_mat
 
 files = glob.glob(os.path.join(config['datadir'],'*.bo'))
 # completed = set([os.path.basename(x).split('.mo')[0] for x in glob.glob(os.path.join(config['resultsdir'], 'union', '*.mo'))])
-completed = []
+'''completed = []
 freqs = ['alpha', 'beta', 'delta', 'theta', 'lgamma', 'hgamma']
 for freq in freqs:
-    completed += glob.glob('/dartfs/rc/lab/D/DBIC/CDL/f003f64/ram_results_voltage/RAM_union/*' + freq + '*')
+    completed += glob.glob('/dartfs/rc/lab/D/DBIC/CDL/f003f64/ram_results_voltage/RAM_union/*' + freq + '*')'''
 
 
 fcompleted = glob.glob(os.path.join(config['resultsdir'], 'union', '*'))
 fcompleted = set([os.path.basename(x).split('.mo')[0] for x in fcompleted])
-completed = set([os.path.basename(x).split('.mo')[0] for x in completed])
+#completed = set([os.path.basename(x).split('.mo')[0] for x in completed])(OG)
 files = set([os.path.basename(x).split('.bo')[0] for x in files])
-files = [os.path.join(config['datadir'], x + '.bo') for x in completed-fcompleted]
+files = [os.path.join(config['datadir'], x + '.bo') for x in fcompleted] #(OG)iles = [os.path.join(config['datadir'], x + '.bo') for x in completed-fcompleted]
 
 
 
@@ -136,7 +135,7 @@ for n, c in zip(job_names, job_commands):
     if not os.path.isfile(os.path.join(script_dir, n)):
         if lock(next_lockfile):
             next_job = create_job(n, c)
-
+            #NEED TO CHANGE 
             if (socket.gethostname() == 'discovery7.hpcc.dartmouth.edu') or (socket.gethostname() == 'ndoli.hpcc.dartmouth.edu'):
                 submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; mksub'
             else:
