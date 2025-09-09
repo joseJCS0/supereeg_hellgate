@@ -10,7 +10,7 @@ WIP, automated pipeline for whole analysis
 """
 
 ### IMPORTANT CONFIG
-og_bodir = '/dartfs/rc/lab/D/DBIC/CDL/f002s72/RAM_analysis/bos'
+og_bodir = '/home/jose/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/datadir/bo'
 num_models = 79
 
 
@@ -30,21 +30,21 @@ def check(update, check, step, wait_time=60, timeout=60*20):
 
 run = sh.Command('python')
 
-freqdir = '/dartfs/rc/lab/D/DBIC/CDL/f003f64/freqs'
+#freqdir = '/dartfs/rc/lab/D/DBIC/CDL/f003f64/freqs'
 num_orig = len(glob(join(og_bodir, '*.bo')))
-num_freq = len(glob(join(freqdir, '*.bo')))
+#num_freq = len(glob(join(freqdir, '*.bo')))
 
-if num_freq < 6 * num_orig:
+'''f num_freq < 6 * num_orig:
     run('/dartfs-hpc/rc/home/4/f003f64/supereeg_paper/code/scripts/make_freqs/make_freq_bos_submit.py')
     check(lambda: len(glob(join(freqdir, '*.bo'))), \
-        lambda: len(glob(join(freqdir, '*.bo'))) == 6 * num_orig, 'freq bo creation')
+        lambda: len(glob(join(freqdir, '*.bo'))) == 6 * num_orig, 'freq bo creation')'''
 
 print('freq creation done')
 
-locs_dir = '/dartfs/rc/lab/D/DBIC/CDL/f003f64/results'
+locs_dir = '/home/jose/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/workingdir/results/'
 num_locs = len(glob(join(locs_dir, '*locs.npz')))
 if num_locs < 6:
-    run('/dartfs-hpc/rc/home/4/f003f64/supereeg_paper/code/scripts/pyFR_locs/union_locs_job_submit.py')
+    run('/home/jose/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/workingdir/scripts/pyFR_locs/union_locs_job_submit.py')
     check(lambda: len(glob(join(locs_dir, '*locs.npz'))),\
         lambda: len(glob(join(locs_dir, '*locs.npz'))) == 6, 'locs')
 
@@ -58,26 +58,29 @@ for f in loc_fs:
         print('something wrong with locs')
         exit()
 
-results_dir = '/dartfs/rc/lab/D/DBIC/CDL/f003f64/'
+results_dir = '/home/jose/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/workingdir/results/'
 
 locs_dir = join(results_dir, 'union')
-def check_freqs():
+'''def check_freqs():
     freqs = ['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma']
     full_mats = [glob(join(locs_dir, '*'+freq+'*')) for freq in freqs]
     for freq_mats in full_mats:
         if len(freq_mats) != num_models:
             return False
-    return True
+    return True'''
 
-if not check_freqs():
+'''if not check_freqs():
     run('/dartfs-hpc/rc/home/4/f003f64/supereeg_paper/code/scripts/full_mats/full_mats_job_submit.py')
-    check(lambda: len(glob(join(locs_dir, '*'))), lambda: check_freqs, 'full mats')
+    check(lambda: len(glob(join(locs_dir, '*'))), lambda: check_freqs, 'full mats')'''
+
+run('/home/jose/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/workingdir/scripts/full_mats/full_mats_job_submit.py')
+check(lambda: len(glob(join(locs_dir, '*'))), 'full mats')
 
 print('full mats done')
 
 num_ave = lambda: len(glob(join(results_dir,'*.mo')))
 if num_ave() < 6:
-    run('/dartfs-hpc/rc/home/4/f003f64/supereeg_paper/code/scripts/ave_mats/ave_mats_job_submit.py')
+    run('/home/jose/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/workingdir/scripts/ave_mats/ave_mats_job_submit.py')
     check(num_ave, lambda: num_ave() < 6, 'ave mats')
 
 print('ave mats done')
