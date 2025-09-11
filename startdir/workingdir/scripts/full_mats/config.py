@@ -24,4 +24,13 @@ config['resultsdir'] = os.path.join(config['workingdir'], 'results','union')
 config['locsdir'] = os.path.join(config['workingdir'], 'results')
 config['og_bodir'] = config['datadir'] # KEEP AN EYE
 config['og_bodir'] = config['datadir'] # LEEP AN EYE
+
+# runtime options
+config['jobname'] = "full_mats"  # default job name
+config['q'] = "default"  # options: default, testing, largeq
+config['nnodes'] = 1  # how many nodes to use for this one job
+config['ppn'] = 8  # how many processors to use for this one job (assume 4GB of RAM per processor)
+config['walltime'] = '18:00:00'  # maximum runtime, in h:MM:SS
+config['cmd_wrapper'] = "python3"  # replace with actual command wrapper (e.g. matlab, python, etc.)
+config['modules'] = "(\"python/3.5\")"  # separate each module with a space and enclose in (escaped) double quotes
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======

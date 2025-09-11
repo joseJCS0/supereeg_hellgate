@@ -3,27 +3,22 @@
 # DO NOT MODIFY THIS FILE!
 # MODIFY config.py AND create_and_submit_jobs.py AS NEEDED
 
-# Portable Batch System (PBS) lines begin with "#PBS".  to-be-replaced text is sandwiched between angled brackets
+#SBATCH --job-name==recon
 
-# declare a name for this job
-#PBS -N <config['jobname']>
+#SBATCH --output=recon%A_%a.out
+#SBATCH --error=recon%A_%a.err
+#SBATCH --output =directory/to/put/in/recon_log.txt
+#SBATCH --error =directory/to/put/in/recon_error.txt
 
-# specify the queue the job will be added to (if more than 600, use largeq)
-#PBS -q <config['q']>
+#SBATCH --nodes=1
 
-# specify the number of cores and nodes (estimate 4GB of RAM per core)
-#PBS -l nodes=<config['nnodes']>:ppn=<config['ppn']>
+#SBATCH --cpus-per-task=20
 
-# specify how long the job should run (wall time)
-#PBS -l walltime=<config['walltime']>
+#SBATCH --mem-per-cpu=6gb
 
-# no more PBS -l feature=<config['feature']>
+#SBATCH --mail-type=BEGIN,END,FAIL
 
-# no more emails pls PBS -m ea
-# export MKL_NUM_THREADS=16
-# export NUMEXPR_NUM_THREADS=16
-# export OMP_NUM_THREADS=16
-
+#SBATCH --main-user=jose.carmona-sanchez@umconnect.umt.edu
 
 # set the working directory *of this script* to the directory from which the job was submitted
 

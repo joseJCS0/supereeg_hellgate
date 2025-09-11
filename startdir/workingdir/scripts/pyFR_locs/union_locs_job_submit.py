@@ -20,7 +20,7 @@ except:
 
 # each job command should be formatted as a string
 job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'union_locs.py')
-job_commands = list(map(lambda x: x[0]+" "+str(x[1]), zip([job_script]))) #*len(freqnames), freqnames
+job_commands = list(map(lambda x: x[0]+" "+str(x[0]), zip([job_script]))) #*len(freqnames), freqnames
 # job_names should specify the file name of each script (as a list, of the same length as job_commands)
 job_names = list(map(lambda x: 'pyFR_locs_' + str(x) + '.sh', range(len(job_commands))))
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
