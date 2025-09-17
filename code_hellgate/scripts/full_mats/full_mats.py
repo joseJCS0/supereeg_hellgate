@@ -6,8 +6,8 @@ import time
 from config import config
 from bandbrain import BandBrain
 
-
-fname = sys.argv[1]
+fname_var = sys.argv[1]
+fname = fname_var
 results_dir = config['resultsdir']
 freq = fname.split('_')[-1].split('.bo')[0]
 fname = os.path.basename(os.path.splitext(fname)[0])
@@ -24,7 +24,7 @@ def electrode_search(fname, threshold=10):
     try:
         kurt_vals = se.load(fname, field='kurtosis')
     except:
-        kurt_vals = se.load(sys.argv[1], field='kurtosis')
+        kurt_vals = se.load(fname_var, field='kurtosis')
     thresh_bool = kurt_vals > threshold
     return sum(~thresh_bool)
 
@@ -35,7 +35,7 @@ except:
     locs_file = os.path.join(config['locsdir'], 'raw_locs.npz')
     R = np.load(locs_file)['locs']
 
-elec_count = electrode_search(sys.argv[1])
+elec_count = electrode_search(fname_var)
 
 try:
     if not os.path.exists(results_dir):
@@ -53,19 +53,19 @@ if elec_count > 1:
     loaded = False
     while numtries < 20 and not loaded:
         try:
-            bo = se.load(sys.argv[1])
+            bo = se.load(fname_var)
             loaded = True
         except:
             numtries += 1
             time.sleep(5)
-    bo = se.load(sys.argv[1])
+    bo = se.load(fname_var)
 
     # load original brain object
     og_fname = os.path.join(config['og_bodir'], fname.split('_' + freq)[0] + '.bo')
     try:
         og_bo = se.load(og_fname)
     except:
-        og_bo = se.load(sys.argv[1])
+        og_bo = se.load(fname_var)
     og_bo.update_filter_inds()
 
     # turn it into fancy ~BandBrain~
@@ -84,4 +84,4 @@ if elec_count > 1:
     mo.save(os.path.join(results_dir, fname))
 
 else:
-    print('skipping model (not enough electrodes pass kurtosis threshold): ' + sys.argv[1])
+    print('skipping model (not enough electrodes pass kurtosis threshold): ' + fname_var)

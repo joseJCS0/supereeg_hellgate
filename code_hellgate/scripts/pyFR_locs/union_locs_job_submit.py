@@ -16,7 +16,7 @@ try:
 except:
     os.makedirs(config['resultsdir'])
 
-freqnames = ['raw','raw'] #, 'broadband', 'raw']
+freqnames = ['raw'] #, 'broadband', 'raw']
 
 # each job command should be formatted as a string
 job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'union_locs.py')
@@ -120,10 +120,12 @@ for n, c in zip(job_names, job_commands):
         if lock(next_lockfile):
             next_job = create_job(n, c)
 
-            if (socket.gethostname() == 'discovery7.hpcc.dartmouth.edu') or (socket.gethostname() == 'ndoli.hpcc.dartmouth.edu'):
+            submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
+
+            '''if (socket.gethostname() == 'discovery7.hpcc.dartmouth.edu') or (socket.gethostname() == 'ndoli.hpcc.dartmouth.edu'):
                 submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; mksub'
             else:
-                submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'
+                submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'''
 
             call(submit_command + " " + next_job, shell=True)
 

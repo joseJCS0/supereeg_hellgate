@@ -10,7 +10,7 @@ import sys
 ## this script iterates over brain objects, filters them based on kurtosis value,
 ## then compiles the clean electrodes into a numpy array as well as a list of the contributing brain objects
 
-freq = sys.argv[1]
+freq = "raw" #sys.argv[1]
 
 results_dir = config['resultsdir']
 
