@@ -22,7 +22,7 @@
 # set the working directory *of this script* to the directory from which the job was submitted
 
 # set the working directory *of the job* to the specified start directory
-# cd <config['startdir']>
+cd <config['startdir']>
 
 echo ACTIVATING supereeg VIRTUAL ENVIRONMENT
 
