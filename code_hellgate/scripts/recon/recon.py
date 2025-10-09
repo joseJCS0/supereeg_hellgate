@@ -24,14 +24,14 @@ elec_ind = int(sys.argv[2])
 
 model_template = sys.argv[3]
 
-radius = sys.argv[4]
+radius = int(sys.argv[4])
 
 # mo_mo_fname = os.path.join(config['modeldir'], model_template + '_' + radius, file_name + '.mo')
 mo_mo_fname = os.path.join(config['modeldir'], file_name + '.mo')
 mo_mo = se.load(mo_mo_fname)
 
 # ave_dir = os.path.join(config['avedir'], model_template+ '_' + radius)
-ave_dir = os.path.join(config['resultsdir'])
+ave_dir = os.path.join(config['avedir'])
 
 ave ='ave_mat_' + freq + '.mo'
 mo = se.load(os.path.join(ave_dir, ave))
@@ -60,14 +60,14 @@ og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.b
 if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
     og_fname = bo_fname 
 og_bo = se.load(og_fname)
-bo = BandBrain(bo, og_bo)
-bo.apply_filter(og_bo)
+bo_extra = BandBrain(bo, og_bo)
+bo.apply_filter() #og_bo
 
 print('filter applied')
 
-electrode = bo.get_locs(og_bo).iloc[elec_ind]
+electrode = bo_extra.get_locs(og_bo).iloc[elec_ind]
 
-R_K_subj = bo.get_locs(og_bo).values
+R_K_subj = bo_extra.get_locs(og_bo).values
 
 R_K_removed, other_inds = remove_electrode(R_K_subj, R_K_subj, elec_ind)
 

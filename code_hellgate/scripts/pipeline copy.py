@@ -10,15 +10,19 @@ import socket
 WIP, automated pipeline for whole analysis
 """
 
+### IMPORTANT CONFIG
+num_models = 5
+
 if (socket.gethostname() == 'jose-Cyborg-15-A13VE'):
     og_bodir = '/home/jose/Desktop/supereeg_env/bo'
     scripts_path = '/home/jose/miniconda3/envs/supereeg_pipeline_test/startdir/workingdir/scripts'
+    locs_dir = "holder/pyFR_locs/results"
 else:
     og_bodir = '/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/bo'
     scripts_path = '/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts'
+    locs_dir = '/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/pyFR_locs/results'
 
-### IMPORTANT CONFIG
-num_models = 5
+
 
 
 def check(update, check, step, wait_time=60, timeout=60*20):
@@ -40,17 +44,7 @@ run = sh.Command('python')
 
 run(join(scripts_path,'file_io/file_io_job_submit.py'))
 
-freqdir = '/home/jose/miniconda3/envs/supereeg_pipeline_test/startdir/datadir/freqs'
-num_orig = len(glob(join(og_bodir, '*.bo')))
-num_freq = len(glob(join(freqdir, '*.bo')))
 
-'''if num_freq < 1 * num_orig:
-    run('/home/jose/miniconda3/envs/supereeg_pipeline_test/startdir/workingdir/scripts/make_freqs/make_freq_bos_submit.py')
-    check(lambda: len(glob(join(freqdir, '*.bo'))), \
-        lambda: len(glob(join(freqdir, '*.bo'))) == 1 * num_orig, 'freq bo creation')
-print('freq creation done')'''
-
-locs_dir = '/home/jose/miniconda3/envs/supereeg_pipeline_test/startdir/datadir/results'
 num_locs = len(glob(join(locs_dir, '*locs.npz')))
 if num_locs < 1:
     run('/home/jose/miniconda3/envs/supereeg_pipeline_test/startdir/workingdir/scripts/pyFR_locs/union_locs_job_submit.py')

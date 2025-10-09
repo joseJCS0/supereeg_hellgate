@@ -8,8 +8,8 @@
 #SBATCH --output=ave_mats%A_%a.out
 #SBATCH --error=ave_mats%A_%a.err
 
-#SBATCH --output =/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/ave_mats/avemats_log.txt
-#SBATCH --error =/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/ave_mats/avemats_error.txt
+#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/ave_mats/avemats_log.txt
+#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/ave_mats/avemats_error.txt
 
 #SBATCH --nodes=1
 
@@ -17,7 +17,7 @@
 
 #SBATCH --mem-per-cpu=6gb
 
-#SBATCH --mail-type=BEGIN,END,FAIL
+# --mail-type=BEGIN,END,FAIL
 
 #SBATCH --mail-user=jose.carmona-sanchez@umconnect.umt.edu
 

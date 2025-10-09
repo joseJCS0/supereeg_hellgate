@@ -1,0 +1,1 @@
+skipping model (not enough electrodes pass kurtosis threshold): /mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/bo/R1067P_RAM_FR1_0.bo

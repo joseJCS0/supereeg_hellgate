@@ -1,0 +1,50 @@
+/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/model.py:602: UserWarning: solution unstable
+  warnings.warn('solution unstable')
+/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/model.py:602: UserWarning: solution unstable
+  warnings.warn('solution unstable')
+/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/model.py:602: UserWarning: solution unstable
+  warnings.warn('solution unstable')
+Traceback (most recent call last):
+  File "/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon.py", line 74, in <module>
+    known_inds, unknown_inds, e_ind = known_unknown(R, R_K_removed, R_K_subj, elec_ind)
+                                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/helpers.py", line 1151, in known_unknown
+    rm_unknown_ind = np.where(np.array(unknown_inds) == np.array(rm_full_ind))[0].tolist()
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operands could not be broadcast together with shapes (60,) (0,) 
+/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/model.py:602: UserWarning: solution unstable
+  warnings.warn('solution unstable')
+/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/model.py:602: UserWarning: solution unstable
+  warnings.warn('solution unstable')
+Traceback (most recent call last):
+  File "/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon.py", line 74, in <module>
+    known_inds, unknown_inds, e_ind = known_unknown(R, R_K_removed, R_K_subj, elec_ind)
+                                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/helpers.py", line 1151, in known_unknown
+    rm_unknown_ind = np.where(np.array(unknown_inds) == np.array(rm_full_ind))[0].tolist()
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operands could not be broadcast together with shapes (60,) (0,) 
+Traceback (most recent call last):
+  File "/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon.py", line 74, in <module>
+    known_inds, unknown_inds, e_ind = known_unknown(R, R_K_removed, R_K_subj, elec_ind)
+                                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/helpers.py", line 1151, in known_unknown
+    rm_unknown_ind = np.where(np.array(unknown_inds) == np.array(rm_full_ind))[0].tolist()
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operands could not be broadcast together with shapes (60,) (0,) 
+Traceback (most recent call last):
+  File "/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon.py", line 74, in <module>
+    known_inds, unknown_inds, e_ind = known_unknown(R, R_K_removed, R_K_subj, elec_ind)
+                                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/helpers.py", line 1151, in known_unknown
+    rm_unknown_ind = np.where(np.array(unknown_inds) == np.array(rm_full_ind))[0].tolist()
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operands could not be broadcast together with shapes (60,) (0,) 
+Traceback (most recent call last):
+  File "/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon.py", line 74, in <module>
+    known_inds, unknown_inds, e_ind = known_unknown(R, R_K_removed, R_K_subj, elec_ind)
+                                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/beegfs/hellgate/home/jc158347/.conda/envs/supereeg_env/lib/python3.13/site-packages/supereeg/helpers.py", line 1151, in known_unknown
+    rm_unknown_ind = np.where(np.array(unknown_inds) == np.array(rm_full_ind))[0].tolist()
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: operands could not be broadcast together with shapes (60,) (0,) 
