@@ -6,11 +6,11 @@ config = dict()
 config['template'] = 'run_job.sh'
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
-if (socket.gethostname() == 'jose-Cyborg-15-A13VE'):
-    config["pyFR_locs"] = '/home/jose/Desktop/supereeg_env/pyFR_locs'
-    config['datadir'] = '/home/jose/Desktop/supereeg_env/bo'
-    config['workingdir'] = '/home/jose/Desktop/supereeg_env/full_mats'
-    config['startdir'] = '/home/jose/Desktop/supereeg_env'  # directory to start the job in
+if (socket.gethostname() == 'josecsOmarchy'):
+    config["pyFR_locs"] = '/home/josecs/Desktop/supereeg_env/pyFR_locs'
+    config['datadir'] = '/home/josecs/Desktop/supereeg_env/bo'
+    config['workingdir'] = '/home/josecs/Desktop/supereeg_env/full_mats'
+    config['startdir'] = '/home/josecs/Desktop/supereeg_env'  # directory to start the job in
     config['template'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'run_job_local.sh')
 else:
     config["pyFR_locs"] = '/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/pyFR_locs'

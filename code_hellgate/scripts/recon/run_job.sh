@@ -1,37 +1,34 @@
-#!/bin/bash -l
+#!/bin/bash
 
 # DO NOT MODIFY THIS FILE!
 # MODIFY config.py AND create_and_submit_jobs.py AS NEEDED
 
-# Portable Batch System (PBS) lines begin with "#PBS".  to-be-replaced text is sandwiched between angled brackets
+#SBATCH --job-name=recon
 
-# declare a name for this job
-#PBS -N <config['jobname']>
+#SBATCH --output=recon%A_%a.out
+#SBATCH --error=recon%A_%a.err
 
-# specify the queue the job will be added to (if more than 600, use largeq)
-#PBS -q <config['q']>
+#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon_log.txt
+#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon_error.txt
 
-# specify the number of cores and nodes (estimate 4GB of RAM per core)
-#PBS -l nodes=<config['nnodes']>:ppn=<config['ppn']>
+#SBATCH --nodes=1
 
-# specify how long the job should run (wall time)
-#PBS -l walltime=<config['walltime']>
+#SBATCH --cpus-per-task=10
 
-# no more PBS -l feature=<config['feature']>
+#SBATCH --mem-per-cpu=5gb
 
-# no more emails pls PBS -m ea
-# export MKL_NUM_THREADS=16
-# export NUMEXPR_NUM_THREADS=16
-# export OMP_NUM_THREADS=16
+# --mail-type=BEGIN,END,FAIL
 
+#SBATCH --mail-user=jose.carmona-sanchez@umconnect.umt.edu
 
 # set the working directory *of this script* to the directory from which the job was submitted
 
+source /opt/conda/etc/profile.d/conda.sh
+
+conda activate supereeg_env
+
 # set the working directory *of the job* to the specified start directory
 cd <config['startdir']>
-
-echo ACTIVATING supereeg VIRTUAL ENVIRONMENT
-conda activate supereeg_env
 
 # run the job
 <config['cmd_wrapper']> <job_command> #note: job_command is reserved for the job command; it should not be specified in config.py

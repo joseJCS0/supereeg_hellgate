@@ -6,9 +6,9 @@ config = dict()
 config['template'] = 'run_job.sh'
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
-if (socket.gethostname() == 'jose-Cyborg-15-A13VE'):
-    config['datadir'] = '/home/jose/Desktop/supereeg_env/bo'
-    config['workingdir'] = '/home/jose/Desktop/supereeg_env/pyFR_locs'
+if (socket.gethostname() == 'josecsOmarchy'):
+    config['datadir'] = '/home/josecs/Desktop/supereeg_env/bo'
+    config['workingdir'] = '/home/josecs/Desktop/supereeg_env/pyFR_locs'
     config['startdir'] = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # directory to start the job in
     config['template'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'run_job_local.sh')
 

@@ -155,6 +155,10 @@ try:
 except:
     os.makedirs(config['startdir'])
 
+num_jobs_allowed = 5
+jobs_ran = 0
+file_count = 0
+total_jobs_allowed = jobs_ran + num_jobs_allowed
 
 locks = list()
 for n, c in zip(job_names, job_commands):
@@ -164,18 +168,23 @@ for n, c in zip(job_names, job_commands):
     locks.append(next_lockfile)
     if not os.path.isfile(os.path.join(script_dir, n)):
         if lock(next_lockfile):
+
+            if jobs_ran >= total_jobs_allowed:
+                while ((file_count / 2)) < (jobs_ran):
+                    for root, dirs, files in os.walk(os.path.join(config['resultsdir'],'raw_recon')):
+                        file_count = len(files)
+                total_jobs_allowed = jobs_ran + num_jobs_allowed
+
             next_job = create_job(n, c)
 
-            if (socket.gethostname() == 'discovery7.hpcc.dartmouth.edu') or (socket.gethostname() == 'ndoli.hpcc.dartmouth.edu'):
-                # submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; mksub'
-                submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; /optnfs/mkerberos/bin/mksub'
-                # submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; /usr/local/bin/qsub'
+            if (socket.gethostname() == 'josecsOmarchy'):
+                submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'
             else:
-                # submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'
-                submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; /optnfs/mkerberos/bin/mksub'
+                submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
 
             cp = run(submit_command + " " + next_job, shell=True, stdout=PIPE, universal_newlines=True)
-            run('echo \"' + cp.stdout + '\"', shell=True)
+            jobs_ran += 1
+                #run('echo \"' + cp.stdout + '\"', shell=True)
 
 # all jobs have been submitted; release all locks
 for l in locks:

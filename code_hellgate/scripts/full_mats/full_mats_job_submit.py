@@ -8,6 +8,7 @@ import os
 import socket
 import getpass
 import datetime as dt
+import time
 
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
@@ -127,6 +128,12 @@ try:
 except:
     os.makedirs(config['startdir'])
 
+num_jobs_allowed = 1
+jobs_ran = 0
+file_count = 0
+total_jobs_allowed = jobs_ran + num_jobs_allowed
+time_limit = 300 #time limit per job (seconds)
+
 locks = list()
 for n, c in zip(job_names, job_commands):
     # if the submission script crashes before all jobs are submitted, the lockfile system ensures that only
@@ -135,17 +142,29 @@ for n, c in zip(job_names, job_commands):
     locks.append(next_lockfile)
     if not os.path.isfile(os.path.join(script_dir, n)):
         if lock(next_lockfile):
+
+            if jobs_ran >= total_jobs_allowed:
+                start_time = time.time()
+                while (((file_count)) < (jobs_ran)):
+                    elapsed_time = time.time() - start_time
+                    for root, dirs, files in os.walk(config['resultsdir']):
+                        file_count = len(files)
+                    
+                    if elapsed_time >= time_limit:
+                        jobs_ran -= 1
+                        break
+
+                total_jobs_allowed = jobs_ran + num_jobs_allowed
+
             next_job = create_job(n, c)
 
-            submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
-
-            '''if (socket.gethostname() == 'discovery7.hpcc.dartmouth.edu') or (socket.gethostname() == 'ndoli.hpcc.dartmouth.edu'):
-                submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; mksub'
-            else:
+            if (socket.gethostname() == 'josecsOmarchy'):
                 submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'
-                '''
+            else:
+                submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
 
             call(submit_command + " " + next_job, shell=True)
+            jobs_ran += 1
 
 # all jobs have been submitted; release all locks
 for l in locks:
