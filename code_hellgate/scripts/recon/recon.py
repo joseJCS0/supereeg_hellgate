@@ -31,7 +31,7 @@ mo_mo_fname = os.path.join(config['modeldir'], file_name + '.mo')
 mo_mo = se.load(mo_mo_fname)
 
 # ave_dir = os.path.join(config['avedir'], model_template+ '_' + radius)
-ave_dir = os.path.join(config['resultsdir'])
+ave_dir = os.path.join(config['avedir'])
 
 ave ='ave_mat_' + freq + '.mo'
 mo = se.load(os.path.join(ave_dir, ave))

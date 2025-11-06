@@ -7,10 +7,10 @@ config['template'] = 'run_job.sh'
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
 if (socket.gethostname() == 'josecsOmarchy'):
-    config['datadir'] = '/home/josecs/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/datadir/bo'
-    config['workingdir'] = '/home/josecs/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir/workingdir/recon'
-    config['startdir'] = '/home/josecs/miniconda3/envs/supereeg_pipeline_test/supereeg_hellgate/startdir'  # directory to start the job in
-    config['modeldir'] = '/home/jose/Desktop/supereeg_env/full_mats/results/union'
+    config['datadir'] = '/home/josecs/Desktop/supereeg_env/bo'
+    config['workingdir'] = '/home/josecs/Desktop/supereeg_env/recon'
+    config['startdir'] = '/home/josecs/Desktop/supereeg_env'  # directory to start the job in
+    config['modeldir'] = '/home/josecs/Desktop/supereeg_env/full_mats/results/union'
     config['template'] = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'run_job_local.sh')
 else:
     config['datadir'] = '/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/bo'
