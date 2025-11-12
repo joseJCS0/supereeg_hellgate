@@ -60,14 +60,14 @@ og_fname = os.path.join(config['og_bodir'], basefname.split('_' + freq)[0] + '.b
 if not freq in set(['delta', 'theta', 'alpha', 'beta', 'lgamma', 'hgamma', 'broadband', 'raw']):
     og_fname = bo_fname 
 og_bo = se.load(og_fname)
-bo = BandBrain(bo, og_bo)
+bo_extra = BandBrain(bo, og_bo)
 bo.apply_filter(og_bo)
 
 print('filter applied')
 
-electrode = bo.get_locs(og_bo).iloc[elec_ind]
+electrode = bo_extra.get_locs(og_bo).iloc[elec_ind]
 
-R_K_subj = bo.get_locs(og_bo).values
+R_K_subj = bo_extra.get_locs(og_bo).values
 
 R_K_removed, other_inds = remove_electrode(R_K_subj, R_K_subj, elec_ind)
 

@@ -49,7 +49,7 @@ for i in brain_data:
     try:
         locs = electrode_search(i)
         if not locs.empty:
-            if union_locs == []:
+            if len(union_locs) == 0:
                 print(os.path.basename(i))
                 union_locs = locs.values
                 model_data.append(os.path.basename(i))

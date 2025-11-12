@@ -155,7 +155,7 @@ try:
 except:
     os.makedirs(config['startdir'])
 
-num_jobs_allowed = 5
+num_jobs_allowed = 1
 jobs_ran = 0
 file_count = 0
 total_jobs_allowed = jobs_ran + num_jobs_allowed

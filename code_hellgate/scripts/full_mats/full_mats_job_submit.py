@@ -132,7 +132,7 @@ num_jobs_allowed = 1
 jobs_ran = 0
 file_count = 0
 total_jobs_allowed = jobs_ran + num_jobs_allowed
-time_limit = 300 #time limit per job (seconds)
+time_limit = 180 #time limit per job (seconds)
 
 locks = list()
 for n, c in zip(job_names, job_commands):

@@ -7,7 +7,7 @@ import sh
 import socket
 
 if (socket.gethostname() == 'josecsOmarchy'):
-    fileIO_jobsubmit_path = "/home/josecs/miniconda3/envs/supereeg_env/supereeg_hellgate/code/scripts/file_io/file_io_job_submit.py"
+    fileIO_jobsubmit_path = "/home/josecs/miniconda3/envs/supereeg_env/supereeg_hellgate/code_hellgate/scripts/file_io/file_io_job_submit.py"
     pyFR_jobsubmit_path = "/home/josecs/miniconda3/envs/supereeg_env/supereeg_hellgate/code_hellgate/scripts/pyFR_locs/union_locs_job_submit.py"
     fullmats_jobsubmit_path = "/home/josecs/miniconda3/envs/supereeg_env/supereeg_hellgate/code_hellgate/scripts/full_mats/full_mats_job_submit.py"
     avemats_jobsubmit_path = "/home/josecs/miniconda3/envs/supereeg_env/supereeg_hellgate/code_hellgate/scripts/ave_mats/ave_mats_job_submit.py"
