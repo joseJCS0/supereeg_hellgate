@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l
 
 # DO NOT MODIFY THIS FILE!
 # MODIFY config.py AND create_and_submit_jobs.py AS NEEDED
@@ -8,16 +8,14 @@
 #SBATCH --output=recon%A_%a.out
 #SBATCH --error=recon%A_%a.err
 
-#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon_log.txt
-#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/recon/recon_error.txt
+#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/scripts/recon/recon_log.txt
+#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/scripts/recon/recon_error.txt
 
 #SBATCH --nodes=1
 
-#SBATCH --cpus-per-task=10
+#SBATCH --cpus-per-task=7
 
-#SBATCH --mem-per-cpu=5gb
-
-# --mail-type=BEGIN,END,FAIL
+#SBATCH --mem-per-cpu=10gb
 
 #SBATCH --mail-user=jose.carmona-sanchez@umconnect.umt.edu
 

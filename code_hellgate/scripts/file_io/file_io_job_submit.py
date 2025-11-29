@@ -9,6 +9,7 @@ import socket
 import getpass
 import datetime as dt
 import time
+import slurmjobmanager as slurmjobmanager
 
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
@@ -19,7 +20,7 @@ except:
 
 # each job command should be formatted as a string
 job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'file_io.py')
-files = glob.glob(os.path.join(config['datadir'],'npz/*'))
+files = glob.glob(os.path.join(config['datadir'],'npzs/*'))
 job_commands = list(map(lambda x: x[0]+" "+str(x[1]), zip([job_script]*len(files), files)))
 
 # job_names should specify the file name of each script (as a list, of the same length as job_commands)
@@ -111,11 +112,9 @@ try:
 except:
     os.makedirs(config['startdir'])
 
-num_jobs_allowed = 1
-jobs_ran = 0
-file_count = 0
-total_jobs_allowed = jobs_ran + num_jobs_allowed
-time_limit = 300 #time limit per job (seconds)
+max_jobs = 5
+runnin_jobs = 0
+job_manager = slurmjobmanager.SlurmJobManager(max_jobs=max_jobs, user="jc158347")
 
 locks = list()
 for n, c in zip(job_names, job_commands):
@@ -126,20 +125,9 @@ for n, c in zip(job_names, job_commands):
     if not os.path.isfile(os.path.join(script_dir, n)):
         if lock(next_lockfile):
 
-            if jobs_ran >= total_jobs_allowed:
-                start_time = time.time()
-                while ((file_count)) < (jobs_ran):
-                    for root, dirs, files in os.walk(config['resultsdir']):
-                        file_count = len(files)
-                        break
-
-                    elapsed_time = time.time() - start_time
-                    if elapsed_time >= time_limit:
-                        jobs_ran -= 1
-                        break
-
-                total_jobs_allowed = jobs_ran + num_jobs_allowed
-
+            runnin_jobs = job_manager.count_active_jobs()
+            while  runnin_jobs > max_jobs:
+                runnin_jobs = job_manager.count_active_jobs()
 
             next_job = create_job(n, c)
 
@@ -149,7 +137,6 @@ for n, c in zip(job_names, job_commands):
                 submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
 
             call(submit_command + " " + next_job, shell=True)
-            jobs_ran += 1
 
 # all jobs have been submitted; release all locks
 for l in locks:

@@ -8,8 +8,8 @@
 #SBATCH --output=compile_locs%A_%a.out
 #SBATCH --error=compile_locso%A_%a.err
 
-#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/pyFR_locs/compile_locs_log.txt
-#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/pyFR_locs/compile_locs_error.txt
+#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/scripts/pyFR_locs/compile_locs_log.txt
+#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/scripts/pyFR_locs/compile_locs_error.txt
 
 #SBATCH --nodes=1
 
@@ -17,7 +17,7 @@
 
 #SBATCH --mem-per-cpu=6gb
 
-#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-type=FAIL
 
 #SBATCH --mail-user=jose.carmona-sanchez@umconnect.umt.edu
 

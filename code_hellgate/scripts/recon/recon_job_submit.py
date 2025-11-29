@@ -14,6 +14,7 @@ import time
 import pandas as pd
 from supereeg.helpers import filter_subj as filtsub
 import numpy as np
+import slurmjobmanager as slurmjobmanager
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
 try:
@@ -155,10 +156,10 @@ try:
 except:
     os.makedirs(config['startdir'])
 
-num_jobs_allowed = 1
-jobs_ran = 0
-file_count = 0
-total_jobs_allowed = jobs_ran + num_jobs_allowed
+max_jobs = 5
+runnin_jobs = 0
+job_manager = slurmjobmanager.SlurmJobManager(max_jobs=max_jobs, user="jc158347")
+
 
 locks = list()
 for n, c in zip(job_names, job_commands):
@@ -169,11 +170,9 @@ for n, c in zip(job_names, job_commands):
     if not os.path.isfile(os.path.join(script_dir, n)):
         if lock(next_lockfile):
 
-            if jobs_ran >= total_jobs_allowed:
-                while ((file_count / 2)) < (jobs_ran):
-                    for root, dirs, files in os.walk(os.path.join(config['resultsdir'],'raw_recon')):
-                        file_count = len(files)
-                total_jobs_allowed = jobs_ran + num_jobs_allowed
+            runnin_jobs = job_manager.count_active_jobs()
+            while  runnin_jobs  > max_jobs-1:
+                runnin_jobs = job_manager.count_active_jobs()
 
             next_job = create_job(n, c)
 
@@ -183,7 +182,6 @@ for n, c in zip(job_names, job_commands):
                 submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
 
             cp = run(submit_command + " " + next_job, shell=True, stdout=PIPE, universal_newlines=True)
-            jobs_ran += 1
                 #run('echo \"' + cp.stdout + '\"', shell=True)
 
 # all jobs have been submitted; release all locks

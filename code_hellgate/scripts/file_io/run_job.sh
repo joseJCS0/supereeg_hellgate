@@ -8,16 +8,14 @@
 #SBATCH --output=file_io_npz_bo%A_%a.out
 #SBATCH --error=file_io_npz_bo%A_%a.err
 
-#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/file_io/file_io_npz_bo_log.txt
-#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/supereeg_env/scripts/file_io/file_io_npz_bo_error.txt
+#SBATCH --output=/mnt/beegfs/projects/jc158347/supereeg_jcs/scripts/file_io/file_io_npz_bo_log.txt
+#SBATCH --error=/mnt/beegfs/projects/jc158347/supereeg_jcs/scripts/file_io/file_io_npz_bo_error.txt
 
 #SBATCH --nodes=1
 
 #SBATCH --cpus-per-task=5
 
 #SBATCH --mem-per-cpu=6gb
-
-#SBATCH --mail-type=BEGIN,END,FAIL
 
 #SBATCH --mail-user=jose.carmona-sanchez@umconnect.umt.edu
 
