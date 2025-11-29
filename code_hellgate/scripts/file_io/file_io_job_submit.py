@@ -20,7 +20,7 @@ except:
 
 # each job command should be formatted as a string
 job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'file_io.py')
-files = glob.glob(os.path.join(config['datadir'],'npzs/*'))
+files = glob.glob(os.path.join(config['datadir'],'npz/*'))
 job_commands = list(map(lambda x: x[0]+" "+str(x[1]), zip([job_script]*len(files), files)))
 
 # job_names should specify the file name of each script (as a list, of the same length as job_commands)
@@ -112,31 +112,45 @@ try:
 except:
     os.makedirs(config['startdir'])
 
-max_jobs = 5
-runnin_jobs = 0
-job_manager = slurmjobmanager.SlurmJobManager(max_jobs=max_jobs, user="jc158347")
 
-locks = list()
-for n, c in zip(job_names, job_commands):
-    # if the submission script crashes before all jobs are submitted, the lockfile system ensures that only
-    # not-yet-submitted jobs will be submitted the next time this script runs
-    next_lockfile = os.path.join(lock_dir, n+'.LOCK')
-    locks.append(next_lockfile)
-    if not os.path.isfile(os.path.join(script_dir, n)):
-        if lock(next_lockfile):
+if (socket.gethostname() == 'josecsOmarchy'):
+    locks = list()
+    for n, c in zip(job_names, job_commands):
+        # if the submission script crashes before all jobs are submitted, the lockfile system ensures that only
+        # not-yet-submitted jobs will be submitted the next time this script runs
+        next_lockfile = os.path.join(lock_dir, n+'.LOCK')
+        locks.append(next_lockfile)
+        if not os.path.isfile(os.path.join(script_dir, n)):
+            if lock(next_lockfile):
+                next_job = create_job(n, c)
 
-            runnin_jobs = job_manager.count_active_jobs()
-            while  runnin_jobs > max_jobs:
-                runnin_jobs = job_manager.count_active_jobs()
-
-            next_job = create_job(n, c)
-
-            if (socket.gethostname() == 'josecsOmarchy'):
                 submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'
-            else:
+
+                call(submit_command + " " + next_job, shell=True)
+
+else:
+    max_jobs = 5
+    runnin_jobs = 0
+    job_manager = slurmjobmanager.SlurmJobManager(max_jobs=max_jobs, user="jc158347")
+
+    locks = list()
+    for n, c in zip(job_names, job_commands):
+        # if the submission script crashes before all jobs are submitted, the lockfile system ensures that only
+        # not-yet-submitted jobs will be submitted the next time this script runs
+        next_lockfile = os.path.join(lock_dir, n+'.LOCK')
+        locks.append(next_lockfile)
+        if not os.path.isfile(os.path.join(script_dir, n)):
+            if lock(next_lockfile):
+
+                runnin_jobs = job_manager.count_active_jobs()
+                while  runnin_jobs > max_jobs:
+                    runnin_jobs = job_manager.count_active_jobs()
+
+                next_job = create_job(n, c)
+
                 submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
 
-            call(submit_command + " " + next_job, shell=True)
+                call(submit_command + " " + next_job, shell=True)
 
 # all jobs have been submitted; release all locks
 for l in locks:

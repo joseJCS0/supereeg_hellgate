@@ -156,36 +156,57 @@ try:
 except:
     os.makedirs(config['startdir'])
 
-max_jobs = 5
-runnin_jobs = 0
-job_manager = slurmjobmanager.SlurmJobManager(max_jobs=max_jobs, user="jc158347")
 
+if (socket.gethostname() == 'josecsOmarchy'):
 
-locks = list()
-for n, c in zip(job_names, job_commands):
-    # if the submission script crashes before all jobs are submitted, the lockfile system ensures that only
-    # not-yet-submitted jobs will be submitted the next time this script runs
-    next_lockfile = os.path.join(lock_dir, n+'.LOCK')
-    locks.append(next_lockfile)
-    if not os.path.isfile(os.path.join(script_dir, n)):
-        if lock(next_lockfile):
+    locks = list()
+    for n, c in zip(job_names, job_commands):
+        # if the submission script crashes before all jobs are submitted, the lockfile system ensures that only
+        # not-yet-submitted jobs will be submitted the next time this script runs
+        next_lockfile = os.path.join(lock_dir, n+'.LOCK')
+        locks.append(next_lockfile)
+        if not os.path.isfile(os.path.join(script_dir, n)):
+            if lock(next_lockfile):
 
-            runnin_jobs = job_manager.count_active_jobs()
-            while  runnin_jobs  > max_jobs-1:
-                runnin_jobs = job_manager.count_active_jobs()
+                next_job = create_job(n, c)
 
-            next_job = create_job(n, c)
-
-            if (socket.gethostname() == 'josecsOmarchy'):
                 submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'
-            else:
-                submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
 
-            cp = run(submit_command + " " + next_job, shell=True, stdout=PIPE, universal_newlines=True)
+                cp = run(submit_command + " " + next_job, shell=True, stdout=PIPE, universal_newlines=True)
                 #run('echo \"' + cp.stdout + '\"', shell=True)
 
-# all jobs have been submitted; release all locks
-for l in locks:
-    release(l)
-if not lock_dir_exists:  # remove lock directory if it was created here
-    os.rmdir(lock_dir)
+    # all jobs have been submitted; release all locks
+    for l in locks:
+        release(l)
+    if not lock_dir_exists:  # remove lock directory if it was created here
+        os.rmdir(lock_dir)
+else:
+    max_jobs = 5
+    runnin_jobs = 0
+    job_manager = slurmjobmanager.SlurmJobManager(max_jobs=max_jobs, user="jc158347")
+
+    locks = list()
+    for n, c in zip(job_names, job_commands):
+        # if the submission script crashes before all jobs are submitted, the lockfile system ensures that only
+        # not-yet-submitted jobs will be submitted the next time this script runs
+        next_lockfile = os.path.join(lock_dir, n+'.LOCK')
+        locks.append(next_lockfile)
+        if not os.path.isfile(os.path.join(script_dir, n)):
+            if lock(next_lockfile):
+
+                runnin_jobs = job_manager.count_active_jobs()
+                while  runnin_jobs  > max_jobs-1:
+                    runnin_jobs = job_manager.count_active_jobs()
+
+                next_job = create_job(n, c)
+
+                submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
+
+                cp = run(submit_command + " " + next_job, shell=True, stdout=PIPE, universal_newlines=True)
+                #run('echo \"' + cp.stdout + '\"', shell=True)
+
+    # all jobs have been submitted; release all locks
+    for l in locks:
+        release(l)
+    if not lock_dir_exists:  # remove lock directory if it was created here
+        os.rmdir(lock_dir)
