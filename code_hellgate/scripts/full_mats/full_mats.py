@@ -7,6 +7,7 @@ from config import config
 from bandbrain import BandBrain
 
 fname_var = sys.argv[1]
+radius = sys.argv[2]
 fname = fname_var
 results_dir = config['resultsdir']
 freq = fname.split('_')[-1].split('.bo')[0]
@@ -78,7 +79,7 @@ if elec_count > 1:
     bo = se.Brain(bo)
 
     # make model
-    mo = se.Model(bo, locs=R)
+    mo = se.Model(bo, locs=R, rbf_width=int(radius))
 
     # save model
     mo.save(os.path.join(results_dir, fname))

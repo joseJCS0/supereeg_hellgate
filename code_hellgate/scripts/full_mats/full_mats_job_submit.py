@@ -13,6 +13,7 @@ import slurmjobmanager as slurmjobmanager
 import sys
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
+radius = sys.argv[1]
 
 try:
     os.stat(config['resultsdir'])
@@ -38,7 +39,7 @@ files = [os.path.join(config['datadir'], x) for x in completed-fcompleted]
 
 
 
-job_commands = list(map(lambda x: x[0] + ' ' + str(x[1]), zip([job_script]*len(files), files)))
+job_commands = list(map(lambda x: x[0] + ' ' + str(x[1]) + " " + radius, zip([job_script]*len(files), files)))
 
 # job_names should specify the file name of each script (as a list, of the same length as job_commands)
 

@@ -10,7 +10,7 @@ import getpass
 import datetime as dt
 import supereeg as se
 from supereeg.load import load
-import time
+import sys
 import pandas as pd
 from supereeg.helpers import filter_subj as filtsub
 import numpy as np
@@ -60,7 +60,7 @@ print('num of remaining jobs: ' + str(len(file_nums)))
 # options for model: 'pyFR_union', 'example_model', 'gray'
 model = str('pyFR_union')
 
-radius = str('20')
+radius = sys.argv[1]
 
 job_commands = list(map(lambda x: x[0]+" "+str(x[1][0])+" "+str(x[1][1])+" " + model + " " + radius, zip([job_script]* len(file_nums), file_nums)))
 

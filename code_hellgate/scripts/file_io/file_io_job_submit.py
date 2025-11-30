@@ -122,11 +122,18 @@ if (socket.gethostname() == 'josecsOmarchy'):
         locks.append(next_lockfile)
         if not os.path.isfile(os.path.join(script_dir, n)):
             if lock(next_lockfile):
+
                 next_job = create_job(n, c)
 
                 submit_command = 'echo "[RUNNING JOB: ' + next_job + ']"; sh'
 
                 call(submit_command + " " + next_job, shell=True)
+
+    # all jobs have been submitted; release all locks
+    for l in locks:
+        release(l)
+    if not lock_dir_exists:  # remove lock directory if it was created here
+        os.rmdir(lock_dir)
 
 else:
     max_jobs = 5
@@ -152,8 +159,8 @@ else:
 
                 call(submit_command + " " + next_job, shell=True)
 
-# all jobs have been submitted; release all locks
-for l in locks:
-    release(l)
-if not lock_dir_exists:  # remove lock directory if it was created here
-    os.rmdir(lock_dir)
+    # all jobs have been submitted; release all locks
+    for l in locks:
+        release(l)
+    if not lock_dir_exists:  # remove lock directory if it was created here
+        os.rmdir(lock_dir)
