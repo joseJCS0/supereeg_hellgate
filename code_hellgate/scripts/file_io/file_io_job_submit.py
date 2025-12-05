@@ -153,6 +153,10 @@ else:
                 submit_command = 'echo "[SUBMITTING JOB: ' + next_job + ']"; sbatch'
 
                 call(submit_command + " " + next_job, shell=True)
+                
+    runnin_jobs = job_manager.count_active_jobs()
+    while runnin_jobs >= 1:
+        runnin_jobs = job_manager.count_active_jobs()
 
 # all jobs have been submitted; release all locks
 for l in locks:
@@ -160,6 +164,4 @@ for l in locks:
 if not lock_dir_exists:  # remove lock directory if it was created here
     os.rmdir(lock_dir)
 
-runnin_jobs = job_manager.count_active_jobs()
-while runnin_jobs >= 1:
-    runnin_jobs = job_manager.count_active_jobs()
+

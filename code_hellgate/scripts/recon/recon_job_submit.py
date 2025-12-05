@@ -199,6 +199,11 @@ else:
 
                 cp = run(submit_command + " " + next_job, shell=True, stdout=PIPE, universal_newlines=True)
                 #run('echo \"' + cp.stdout + '\"', shell=True)
+                
+    #Wait for Jobs to finish
+    runnin_jobs = job_manager.count_active_jobs()
+    while runnin_jobs >= 1:
+        runnin_jobs = job_manager.count_active_jobs()
 
 # all jobs have been submitted; release all locks
 for l in locks:
@@ -206,6 +211,4 @@ for l in locks:
 if not lock_dir_exists:  # remove lock directory if it was created here
     os.rmdir(lock_dir)
 
-runnin_jobs = job_manager.count_active_jobs()
-while runnin_jobs >= 1:
-    runnin_jobs = job_manager.count_active_jobs()
+
