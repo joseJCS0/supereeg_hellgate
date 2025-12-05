@@ -1,90 +1,79 @@
-R1202M_RAM_FR1_0
+R1260D_RAM_CatFR1_0
 models deleted
 filter applied
 bo indexed
-       x      y     z
-0  27.09 -81.92 -2.04
-x    27.09
-y   -81.92
-z    -2.04
-Name: 44, dtype: float64
-[0.53945868]
-       x      y     z
-0  27.09 -81.92 -2.04
-x    27.09
-y   -81.92
-z    -2.04
-Name: 44, dtype: float64
-[0.27561222]
-R1202M_RAM_FR1_0
+       x      y      z
+0 -56.98 -60.68  43.77
+x   -56.98
+y   -60.68
+z    43.77
+Name: 113, dtype: float64
+[0.09186106]
+       x      y      z
+0 -56.98 -60.68  43.77
+x   -56.98
+y   -60.68
+z    43.77
+Name: 113, dtype: float64
+[0.28297361]
+R1260D_RAM_CatFR1_0
 models deleted
 filter applied
 bo indexed
-       x      y     z
-0  34.52 -73.91 -1.02
-x    34.52
-y   -73.91
-z    -1.02
-Name: 45, dtype: float64
-[0.678725]
-       x      y     z
-0  34.52 -73.91 -1.02
-x    34.52
-y   -73.91
-z    -1.02
-Name: 45, dtype: float64
-[0.35517084]
-R1202M_RAM_FR1_0
+       x      y      z
+0 -52.64 -52.89  50.25
+x   -52.64
+y   -52.89
+z    50.25
+Name: 115, dtype: float64
+[-0.03640996]
+       x      y      z
+0 -52.64 -52.89  50.25
+x   -52.64
+y   -52.89
+z    50.25
+Name: 115, dtype: float64
+[0.35198359]
+R1260D_RAM_CatFR1_0
 models deleted
 filter applied
 bo indexed
-       x      y     z
-0  47.76 -57.65 -0.57
-x    47.76
-y   -57.65
-z    -0.57
-Name: 47, dtype: float64
-[0.70634137]
-       x      y     z
-0  47.76 -57.65 -0.57
-x    47.76
-y   -57.65
-z    -0.57
-Name: 47, dtype: float64
-[0.4150476]
-R1202M_RAM_FR1_0
+       x      y      z
+0 -51.05 -38.11  49.31
+x   -51.05
+y   -38.11
+z    49.31
+Name: 107, dtype: float64
+[-0.03406156]
+       x      y      z
+0 -51.05 -38.11  49.31
+x   -51.05
+y   -38.11
+z    49.31
+Name: 107, dtype: float64
+[0.35838873]
+R1260D_RAM_CatFR1_0
+models deleted
+R1260D_RAM_CatFR1_0
+R1260D_RAM_CatFR1_0
+R1260D_RAM_CatFR1_0
+R1260D_RAM_CatFR1_0
+R1260D_RAM_CatFR1_0
+R1260D_RAM_CatFR1_0
 models deleted
 filter applied
 bo indexed
-       x      y     z
-0  51.48 -47.88  0.13
-x    51.48
-y   -47.88
-z     0.13
-Name: 48, dtype: float64
-[0.68654841]
-       x      y     z
-0  51.48 -47.88  0.13
-x    51.48
-y   -47.88
-z     0.13
-Name: 48, dtype: float64
-[0.37558226]
-R1202M_RAM_FR1_0
-models deleted
-filter applied
-bo indexed
-       x      y     z
-0  40.82 -65.79 -1.63
-x    40.82
-y   -65.79
-z    -1.63
-Name: 46, dtype: float64
-[0.57847311]
-       x      y     z
-0  40.82 -65.79 -1.63
-x    40.82
-y   -65.79
-z    -1.63
-Name: 46, dtype: float64
-[0.31416934]
+       x      y      z
+0 -46.22 -37.95  64.87
+x   -46.22
+y   -37.95
+z    64.87
+Name: 117, dtype: float64
+[-0.01424434]
+       x      y      z
+0 -46.22 -37.95  64.87
+x   -46.22
+y   -37.95
+z    64.87
+Name: 117, dtype: float64
+[0.1730844]

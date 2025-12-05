@@ -9,11 +9,10 @@ import socket
 import getpass
 import datetime as dt
 import sys
+import slurmjobmanager
 
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
-radius = sys.argv[1]
-
 try:
     os.stat(config['resultsdir'])
 except:
@@ -24,7 +23,7 @@ job_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'ave_mats
 
 freqnames = ['raw']
 
-job_commands = list(map(lambda x: x[0]+" " + x[1] + " " + radius, zip([job_script]*len(freqnames), freqnames)))
+job_commands = list(map(lambda x: x[0]+" " + x[1], zip([job_script]*len(freqnames), freqnames)))
 # job_names should specify the file name of each script (as a list, of the same length as job_commands)
 
 job_names = list(map(lambda x: 'model_' + str(x) + '.sh', range(len(job_commands))))
@@ -137,3 +136,8 @@ for l in locks:
     release(l)
 if not lock_dir_exists:  # remove lock directory if it was created here
     os.rmdir(lock_dir)
+
+job_manager = slurmjobmanager.SlurmJobManager(max_jobs=10, user="jc158347")
+runnin_jobs = job_manager.count_active_jobs()
+while runnin_jobs >= 1:
+    runnin_jobs = job_manager.count_active_jobs()

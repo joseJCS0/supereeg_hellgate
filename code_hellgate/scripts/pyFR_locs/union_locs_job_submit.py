@@ -8,6 +8,7 @@ import os
 import socket
 import getpass
 import datetime as dt
+import slurmjobmanager
 
 
 # ====== MODIFY ONLY THE CODE BETWEEN THESE LINES ======
@@ -133,3 +134,8 @@ for l in locks:
     release(l)
 if not lock_dir_exists:  # remove lock directory if it was created here
     os.rmdir(lock_dir)
+
+job_manager = slurmjobmanager.SlurmJobManager(max_jobs=10, user="jc158347")
+runnin_jobs = job_manager.count_active_jobs()
+while runnin_jobs >= 1:
+    runnin_jobs = job_manager.count_active_jobs()
