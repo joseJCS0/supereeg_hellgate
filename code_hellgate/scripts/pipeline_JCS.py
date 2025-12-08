@@ -22,7 +22,15 @@ else:
 
 run = sh.Command('python')
 
-rbf_widths = [40]
+rbf_widths = [30,40,50]
+
+print(f"Running Recon: lambda={20}")
+run(reacon_jobsubmit_path, "20")
+print(f"Done running Recon: lambda={20}")
+
+new_name = supereeg_env + f"_{20}_3"
+os.rename(supereeg_env, new_name)
+os.mkdir(supereeg_env)
 
 for i in rbf_widths:
     print(f"Running File_IO: lamda={i}")
@@ -81,6 +89,6 @@ for i in rbf_widths:
     #run_time = np.array([elapsed_time_recon])
     np.savez(supereeg_env+"/Total_Run_Time.npz",run_time)
 
-    new_name = supereeg_env + f"_{i}_2"
+    new_name = supereeg_env + f"_{i}_3"
     os.rename(supereeg_env, new_name)
     os.mkdir(supereeg_env)

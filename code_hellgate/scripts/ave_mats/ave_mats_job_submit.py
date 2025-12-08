@@ -145,7 +145,7 @@ else:
     # Wait for Job to finish
     job_manager = slurmjobmanager.SlurmJobManager(max_jobs=10, user="jc158347")
     runnin_jobs = job_manager.count_active_jobs()
-    while runnin_jobs >= 1:
+    while runnin_jobs >= 2:
         runnin_jobs = job_manager.count_active_jobs()
 
 # all jobs have been submitted; release all locks

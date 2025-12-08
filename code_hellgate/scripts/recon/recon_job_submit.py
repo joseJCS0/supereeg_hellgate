@@ -176,7 +176,7 @@ if (socket.gethostname() == 'josecsOmarchy'):
                 #run('echo \"' + cp.stdout + '\"', shell=True)
 
 else:
-    max_jobs = 10
+    max_jobs = 15
     runnin_jobs = 0
     job_manager = slurmjobmanager.SlurmJobManager(max_jobs=max_jobs, user="jc158347")
 
@@ -202,7 +202,7 @@ else:
                 
     #Wait for Jobs to finish
     runnin_jobs = job_manager.count_active_jobs()
-    while runnin_jobs >= 1:
+    while runnin_jobs >= 2:
         runnin_jobs = job_manager.count_active_jobs()
 
 # all jobs have been submitted; release all locks
